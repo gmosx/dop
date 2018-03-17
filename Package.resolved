@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Common",
+        "repositoryURL": "https://github.com/reizu/swift-common.git",
+        "state": {
+          "branch": "master",
+          "revision": "cefbaa27b7fe2477fa02c385270d7e28a505f5cd",
+          "version": null
+        }
+      },
+      {
         "package": "SwiftPM",
         "repositoryURL": "https://github.com/apple/swift-package-manager.git",
         "state": {
