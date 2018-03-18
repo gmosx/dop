@@ -1,0 +1,6 @@
+{
+    "name": "dop",
+    "version": "0.1.45",
+    "description": "An example dop file",
+    "clusterName": "devious"
+}

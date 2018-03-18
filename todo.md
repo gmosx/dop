@@ -9,3 +9,6 @@
   - apply -> apply
 
   - deploy = {build-image, push-image, apply}
+  - rollback
+
+* Generate and use Helm charts

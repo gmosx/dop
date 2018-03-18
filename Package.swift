@@ -10,7 +10,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "DopJobs",
+            name: "DopTool",
             dependencies: [
                 "Common",
             ]
@@ -19,7 +19,7 @@ let package = Package(
             name: "dop",
             dependencies: [
                 "Utility",
-                "DopJobs",
+                "DopTool",
             ]
         ),
     ]
