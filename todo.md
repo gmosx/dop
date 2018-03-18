@@ -1,5 +1,7 @@
 # TODO
 
+* Add script that installs into /usr/local/bin
+
 * conisder alternative name `cop` (cloud operator)
 
 * Jobs
@@ -10,5 +12,6 @@
 
   - deploy = {build-image, push-image, apply}
   - rollback
+  - clean / reset
 
 * Generate and use Helm charts

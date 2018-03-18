@@ -1,38 +1,68 @@
 import Foundation
-import Common
 
-let dockerfileTemplate = (
-    """
-    FROM ibmcom/swift-ubuntu-runtime:4.0.3
-    
-    MAINTAINER gmosx@reizu.com
-    LABEL Description="Fund Notifications Runtime"
-    
-    RUN apt-get update # && apt-get install -y libpq-dev
-    
-    WORKDIR /root
-    
-    COPY .build/release/fund-notifications-server bin/fund-notifications-server
-    
-    ENV LD_LIBRARY_PATH /usr/lib/swift/linux
-    
-    CMD bin/fund-notifications-server
-    """
-)
+// TODO: render Dockerfile, help charts, how-to-deploy, etc.
 
-public class InitJob: Job {
-    public init() {
+/// Intialize the package for mangement by `dop`.
+public class InitJob: DopJob {
+    private func renderDockerfileContents() -> String {
+        let pd = context.projectDescriptor
+
+        return (
+            """
+            FROM ibmcom/swift-ubuntu-runtime:4.0.3
+
+            MAINTAINER \(pd.maintainer ?? "gmosx@reizu.com")
+            LABEL Description="\(pd.description)"
+
+            RUN apt-get update # && apt-get install -y libpq-dev
+
+            WORKDIR /root
+
+            COPY .build/release/\(pd.executableName) bin/\(pd.executableName)
+
+            ENV LD_LIBRARY_PATH /usr/lib/swift/linux
+
+            CMD bin/\(pd.executableName)
+            """
+        )
+    }
+
+    private func renderDeploymentYAMLContents() -> String {
+        let pd = context.projectDescriptor
+
+        return (
+            """
+            apiVersion: extensions/v1beta1
+            kind: Deployment
+            metadata:
+              name: \(pd.name)-deployment
+            spec:
+              replicas: 1
+              template:
+                metadata:
+                  labels:
+                    app: \(pd.name)
+                spec:
+                  containers:
+                  - name: \(pd.name)
+                    image: registry.ng.bluemix.net/reizu/\(pd.name):\(pd.version)
+                    # ports:
+                    # - containerPort: 80
+            """
+        )
     }
 
     public func run() {
         do {
-            let fileURL = URL(fileURLWithPath: "dop.json")
-            let descriptorData = try Data(contentsOf: fileURL)
+            let dockerfileContents = renderDockerfileContents()
+            print("Creating 'Dockerfile'...", terminator: " ")
+            try dockerfileContents.write(to: URL(fileURLWithPath: "Dockerfile"), atomically: false, encoding: .utf8)
+            print("DONE")
 
-            let jsonDecoder = JSONDecoder()
-            let descriptor = try jsonDecoder.decode(ProjectDescriptor.self, from: descriptorData)
-
-            print(descriptor)
+            let deploymentYAMLContents = renderDeploymentYAMLContents()
+            print("Creating 'deployment.yaml'...", terminator: " ")
+            try deploymentYAMLContents.write(to: URL(fileURLWithPath: "deployment.yaml"), atomically: false, encoding: .utf8)
+            print("DONE")
         } catch {
             print(error.localizedDescription)
         }
