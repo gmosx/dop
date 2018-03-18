@@ -2,12 +2,8 @@ import Foundation
 import Utility
 import DopTool
 
-let arguments = Array(ProcessInfo.processInfo.arguments.dropFirst())
-let parser = ArgumentParser(usage: "<options>", overview: "Support devops workflows")
-let command = parser.add(positional: "command", kind: String.self)
-
-//let job = BuildImageJob()
-//job.run()
+let parser = ArgumentParser(usage: "subcommand <options>", overview: "Support devops workflows")
+parser.add(subparser: "init", overview: "Initialize the package for managegement by dop")
 
 let context: DopContext
 
@@ -15,21 +11,25 @@ if let projectDescriptor = loadProjectDescriptor() {
     context = DopContext(projectDescriptor: projectDescriptor)
 } else {
     print("Cannot load `dop.json`")
-    exit(0)
+    fatalError()
 }
 
 do {
+    let arguments = Array(ProcessInfo.processInfo.arguments.dropFirst())
     let result = try parser.parse(arguments)
 
-    if let c = result.get(command) {
-        switch (c) {
-        case "init":
-            let job = InitJob(context: context)
-            job.run()
+    guard let subcommand = result.subparser(parser) else {
+//        parser.printUsage(on: stdoutStream)
+        fatalError()
+    }
 
-        default:
-            print("Unrecognized command '\(c)'")
-        }
+    switch (subcommand) {
+    case "init":
+        let job = InitJob(context: context)
+        job.run()
+
+    default:
+        print("Unrecognized command '\(subcommand)'")
     }
 } catch {
     print(error.localizedDescription)
