@@ -1,11 +1,20 @@
 import Foundation
+import Common
 
 // TODO: render Dockerfile, help charts, how-to-deploy, etc.
+// TODO: check if files exist
 
 /// Intialize the package for mangement by `dop`.
-public class InitJob: DopJob {
+public class InitJob: Job {
+    let projectDescriptor: ProjectDescriptor
+    
+    public init(numbers: [Int], projectDescriptor: ProjectDescriptor) {
+        print("~~~", numbers)
+        self.projectDescriptor = projectDescriptor
+    }
+    
     private func renderDockerfileContents() -> String {
-        let pd = context.projectDescriptor
+        let pd = projectDescriptor
 
         return (
             """
@@ -28,7 +37,7 @@ public class InitJob: DopJob {
     }
 
     private func renderDeploymentYAMLContents() -> String {
-        let pd = context.projectDescriptor
+        let pd = projectDescriptor
 
         return (
             """

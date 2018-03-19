@@ -12,6 +12,7 @@ let package = Package(
         .target(
             name: "DopTool",
             dependencies: [
+                "Utility",
                 "Common",
             ]
         ),
