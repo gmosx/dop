@@ -1,32 +1,37 @@
 import Foundation
+import Basic
+import Utility
 
 // TODO: Extract to other package.
-// TODO: Don't use deprecated methods
 
 public class Shell {
     public init() {
     }
     
     @discardableResult
-    public func execute(command: String) -> String? {
-        let process = Process()
-        process.launchPath = "/bin/bash"
-        process.arguments = ["-c", command]
-        
-        let pipe = Pipe()
-        process.standardOutput = pipe
-        process.launch()
-        
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        
-        return String(data: data, encoding: String.Encoding.utf8)
+    public func execute(command: String) throws -> ProcessResult {
+        // https://github.com/apple/swift-package-manager/blob/master/Sources/Basic/Process.swift
+        let process = Process(arguments: ["sh", "-c", command])
+        try process.launch()
+        let result = try process.waitUntilExit()
+        return result
     }
     
     public func execute(script: String) {
-        for scriptCommand in script.split(separator: "\n") {
-            if let output = execute(command: String(scriptCommand)) {
-                print(output, terminator: "")
+        do {
+            for scriptCommand in script.split(separator: "\n") {
+                let result = try execute(command: String(scriptCommand))
+                switch result.exitStatus {
+                case .terminated(let status):
+                    if status != 0 {
+                        break
+                    }
+                default:
+                    continue
+                }
             }
+        } catch {
+            print(error.localizedDescription)
         }
     }
 }

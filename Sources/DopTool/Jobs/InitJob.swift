@@ -3,13 +3,14 @@ import Common
 
 // TODO: render Dockerfile, help charts, how-to-deploy, etc.
 // TODO: check if files exist
+// TODO: consider emitting a templetized deployment.yaml
+// TODO: consider renaming to apply.yaml
 
 /// Intialize the package for mangement by `dop`.
 public class InitJob: Job {
     let projectDescriptor: ProjectDescriptor
     
-    public init(numbers: [Int], projectDescriptor: ProjectDescriptor) {
-        print("~~~", numbers)
+    public init(projectDescriptor: ProjectDescriptor) {
         self.projectDescriptor = projectDescriptor
     }
     
