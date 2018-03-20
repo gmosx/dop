@@ -7,6 +7,7 @@ public struct ProjectDescriptor: Codable {
     public let executableName: String
     public let clusterName: String
     public let maintainer: String?
+    public let packagePath: String
     // registryBaseURL
     // apt-get libraries
 }

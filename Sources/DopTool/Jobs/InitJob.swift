@@ -3,6 +3,7 @@ import Common
 
 // TODO: render Dockerfile, help charts, how-to-deploy, etc.
 // TODO: check if files exist
+// TODO: add --force option
 // TODO: consider emitting a templetized deployment.yaml
 // TODO: consider renaming to apply.yaml
 
@@ -37,6 +38,24 @@ public class InitJob: Job {
         )
     }
 
+//    private func renderDockerfileToolsContents() -> String {
+//        let pd = projectDescriptor
+//
+//        return (
+//            """
+//            FROM ibmcom/swift-ubuntu:4.0.3
+//            MAINTAINER gmosx@reizu.com
+//            LABEL Description="Swift Build Container Image"
+//
+//            RUN apt-get update && apt-get install -y libpq-dev
+//            RUN cd /root/Code/\(pd.packagePath)
+//            RUN swift package clean
+//            RUN swift package update
+//            RUN swift build --configuration=release
+//            """
+//        )
+//    }
+
     private func renderDeploymentYAMLContents() -> String {
         let pd = projectDescriptor
 
@@ -68,6 +87,11 @@ public class InitJob: Job {
             print("Creating 'Dockerfile'...", terminator: " ")
             try dockerfileContents.write(to: URL(fileURLWithPath: "Dockerfile"), atomically: false, encoding: .utf8)
             print("DONE")
+
+//            let dockerfileToolsContents = renderDockerfileToolsContents()
+//            print("Creating 'Dockerfile.tools'...", terminator: " ")
+//            try dockerfileToolsContents.write(to: URL(fileURLWithPath: "Dockerfile.tools"), atomically: false, encoding: .utf8)
+//            print("DONE")
 
             let deploymentYAMLContents = renderDeploymentYAMLContents()
             print("Creating 'deployment.yaml'...", terminator: " ")

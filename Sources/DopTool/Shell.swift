@@ -4,6 +4,15 @@ import Utility
 
 // TODO: Extract to other package.
 
+//docker rm -f build-swift
+//docker run -it -d --name build-swift -v /Users/gmoschovitis/Code:/Users/gmoschovitis/Code reizu/ubuntu-build-swift /bin/bash
+//docker exec -i build-swift bash <<EOF
+//cd /Users/gmoschovitis/Code/Fund/FundNotifications
+//swift package clean
+//swift package update
+//swift build --configuration=release
+//EOF
+
 public class Shell {
     public init() {
     }
@@ -18,14 +27,17 @@ public class Shell {
     }
     
     public func execute(script: String) {
+        print("...", script)
         do {
             for scriptCommand in script.split(separator: "\n") {
                 let result = try execute(command: String(scriptCommand))
                 switch result.exitStatus {
                 case .terminated(let status):
                     if status != 0 {
+                        print((try? result.utf8stderrOutput()) ?? "-")
                         break
                     }
+                    
                 default:
                     continue
                 }
