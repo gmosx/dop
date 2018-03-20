@@ -27,17 +27,19 @@ public class Shell {
     }
     
     public func execute(script: String) {
-        print("...", script)
         do {
             for scriptCommand in script.split(separator: "\n") {
+                print("\(scriptCommand)")
                 let result = try execute(command: String(scriptCommand))
+                print((try? result.utf8Output()) ?? "-")
+
                 switch result.exitStatus {
                 case .terminated(let status):
                     if status != 0 {
                         print((try? result.utf8stderrOutput()) ?? "-")
                         break
                     }
-                    
+
                 default:
                     continue
                 }

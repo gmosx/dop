@@ -9,10 +9,6 @@ public final class BuildReleaseJob: Job {
         self.projectDescriptor = projectDescriptor
     }
     
-    func dockerExec(_ command: String) -> String {
-        return "docker exec -i build-swift \"\(command)\""
-    }
-
     public func run() {
         let pd = projectDescriptor
         let shell = Shell()
