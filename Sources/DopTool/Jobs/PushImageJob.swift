@@ -1,23 +1,25 @@
 import Foundation
 import Common
 
-/// Runs the production Linux image.
-public final class RunReleaseJob: Job {
+/// Push the release image to the registry
+public final class PushImageJob: Job {
     let projectDescriptor: ProjectDescriptor
-
+    
     public init(projectDescriptor: ProjectDescriptor) {
         self.projectDescriptor = projectDescriptor
     }
-
+    
     public func run() {
         let pd = projectDescriptor
         let shell = Shell()
 
+        let fullImageName = "\(pd.registry)/\(pd.imageName):\(pd.version)"
+
         shell.execute(script: (
             """
-            docker rm -f \(pd.name)
-            docker build -t \(pd.imageName) .
-            docker run -t --name \(pd.name) \(pd.imageName)
+            git tag \(pd.version)
+            docker build -t \(fullImageName) .
+            docker push \(fullImageName)
             """
         ))
     }

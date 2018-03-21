@@ -3,15 +3,7 @@ import Basic
 import Utility
 
 // TODO: Extract to other package.
-
-//docker rm -f build-swift
-//docker run -it -d --name build-swift -v /Users/gmoschovitis/Code:/Users/gmoschovitis/Code reizu/ubuntu-build-swift /bin/bash
-//docker exec -i build-swift bash <<EOF
-//cd /Users/gmoschovitis/Code/Fund/FundNotifications
-//swift package clean
-//swift package update
-//swift build --configuration=release
-//EOF
+// TODO: support streaming output.
 
 public class Shell {
     public init() {

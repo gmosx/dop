@@ -1,5 +1,9 @@
 # TODO
 
+* Generate licenses
+
+* colored CLI messages
+
 * keep repoPath parameter
   -> also as environment variable
 
@@ -15,6 +19,7 @@
   - deploy = {build-image, push-image, apply}
   - rollback
   - clean / reset
+  - dump environment variables
 
 * Generate and use Helm charts
 

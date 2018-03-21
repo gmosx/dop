@@ -6,6 +6,7 @@ import Common
 // TODO: add --force option
 // TODO: consider emitting a templetized deployment.yaml
 // TODO: consider renaming to apply.yaml
+// TODO: emit instructions how-to-deploy, etc.
 
 /// Intialize the package for mangement by `dop`.
 public class InitJob: Job {
@@ -18,13 +19,31 @@ public class InitJob: Job {
     private func renderDockerfileContents() -> String {
         let pd = projectDescriptor
 
-        return (
+        var contents: String = (
             """
-            FROM ibmcom/swift-ubuntu-runtime:4.0.3
+            FROM ibmcom/swift-ubuntu-runtime:4.0.3\n
+            """
+        )
 
-            MAINTAINER \(pd.maintainer ?? "gmosx@reizu.com")
-            LABEL Description="\(pd.description)"
+        if let description = pd.description {
+            contents += (
+                """
+                LABEL Description="\(description)"\n
+                """
+            )
+        }
 
+        if let maintainer = pd.maintainer {
+            contents += (
+                """
+                MAINTAINER \(maintainer)\n
+                """
+            )
+        }
+
+        contents += (
+            """
+            
             RUN apt-get update # && apt-get install -y libpq-dev
 
             WORKDIR /root
@@ -36,25 +55,9 @@ public class InitJob: Job {
             CMD bin/\(pd.executableName)
             """
         )
-    }
 
-//    private func renderDockerfileToolsContents() -> String {
-//        let pd = projectDescriptor
-//
-//        return (
-//            """
-//            FROM ibmcom/swift-ubuntu:4.0.3
-//            MAINTAINER gmosx@reizu.com
-//            LABEL Description="Swift Build Container Image"
-//
-//            RUN apt-get update && apt-get install -y libpq-dev
-//            RUN cd /root/Code/\(pd.packagePath)
-//            RUN swift package clean
-//            RUN swift package update
-//            RUN swift build --configuration=release
-//            """
-//        )
-//    }
+        return contents
+    }
 
     private func renderDeploymentYAMLContents() -> String {
         let pd = projectDescriptor
@@ -87,11 +90,6 @@ public class InitJob: Job {
             print("Creating 'Dockerfile'...", terminator: " ")
             try dockerfileContents.write(to: URL(fileURLWithPath: "Dockerfile"), atomically: false, encoding: .utf8)
             print("DONE")
-
-//            let dockerfileToolsContents = renderDockerfileToolsContents()
-//            print("Creating 'Dockerfile.tools'...", terminator: " ")
-//            try dockerfileToolsContents.write(to: URL(fileURLWithPath: "Dockerfile.tools"), atomically: false, encoding: .utf8)
-//            print("DONE")
 
             let deploymentYAMLContents = renderDeploymentYAMLContents()
             print("Creating 'deployment.yaml'...", terminator: " ")
