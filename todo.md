@@ -1,6 +1,14 @@
 # TODO
 
+
+* dop install
+  - use it to install dop into /usr/local/bin
+
 * Generate licenses
+
+* dump the full descriptor (with default values)
+
+* Write some tests
 
 * colored CLI messages
 

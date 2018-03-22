@@ -1,5 +1,4 @@
 import Foundation
-import Common
 
 // TODO: render Dockerfile, help charts, how-to-deploy, etc.
 // TODO: check if files exist
@@ -9,23 +8,15 @@ import Common
 // TODO: emit instructions how-to-deploy, etc.
 
 /// Intialize the package for mangement by `dop`.
-public class InitJob: Job {
-    let projectDescriptor: ProjectDescriptor
-    
-    public init(projectDescriptor: ProjectDescriptor) {
-        self.projectDescriptor = projectDescriptor
-    }
-    
+public class InitJob: BaseToolJob {
     private func renderDockerfileContents() -> String {
-        let pd = projectDescriptor
-
         var contents: String = (
             """
             FROM ibmcom/swift-ubuntu-runtime:4.0.3\n
             """
         )
 
-        if let description = pd.description {
+        if let description = project.description {
             contents += (
                 """
                 LABEL Description="\(description)"\n
@@ -33,7 +24,7 @@ public class InitJob: Job {
             )
         }
 
-        if let maintainer = pd.maintainer {
+        if let maintainer = project.maintainer {
             contents += (
                 """
                 MAINTAINER \(maintainer)\n
@@ -44,15 +35,15 @@ public class InitJob: Job {
         contents += (
             """
             
-            RUN apt-get update # && apt-get install -y libpq-dev
+            RUN apt-get uprojectate # && apt-get install -y libpq-dev
 
             WORKDIR /root
 
-            COPY .build/release/\(pd.executableName) bin/\(pd.executableName)
+            COPY .build/release/\(project.executableName) bin/\(project.executableName)
 
             ENV LD_LIBRARY_PATH /usr/lib/swift/linux
 
-            CMD bin/\(pd.executableName)
+            CMD bin/\(project.executableName)
             """
         )
 
@@ -60,31 +51,29 @@ public class InitJob: Job {
     }
 
     private func renderDeploymentYAMLContents() -> String {
-        let pd = projectDescriptor
-
         return (
             """
             apiVersion: extensions/v1beta1
             kind: Deployment
             metadata:
-              name: \(pd.name)-deployment
+              name: \(project.name)-deployment
             spec:
               replicas: 1
               template:
                 metadata:
                   labels:
-                    app: \(pd.name)
+                    app: \(project.name)
                 spec:
                   containers:
-                  - name: \(pd.name)
-                    image: registry.ng.bluemix.net/reizu/\(pd.name):\(pd.version)
+                  - name: \(project.name)
+                    image: registry.ng.bluemix.net/reizu/\(project.name):\(project.version)
                     # ports:
                     # - containerPort: 80
             """
         )
     }
 
-    public func run() {
+    public override func run() {
         do {
             let dockerfileContents = renderDockerfileContents()
             print("Creating 'Dockerfile'...", terminator: " ")
