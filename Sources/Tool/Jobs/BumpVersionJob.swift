@@ -2,6 +2,7 @@ import Foundation
 import Utility
 
 // TODO: consider renaming to updateVersion, support increment/decrement, etc
+// TODO: should update helm values.yaml, Chart.yaml
 
 /// Increment the version number to a new, unique value.
 public final class BumpVersionJob: BaseToolJob {

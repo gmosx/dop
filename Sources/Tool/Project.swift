@@ -26,8 +26,8 @@ public class Project {
         return descriptor.version
     }
     
-    public var description: String? {
-        return descriptor.description
+    public var description: String {
+        return descriptor.description ?? "\(name) \(version)"
     }
     
     public var maintainer: String? {
@@ -85,7 +85,11 @@ public class Project {
     public var fullImageName: String {
         return "\(registry)/\(registryNamespace)/(name):\(version)"
     }
-    
+
+    public var chartPath: String {
+        return "chart/\(name)"
+    }
+
     @discardableResult
     public func bumpVersion() -> String {
         let currentVersion = Version(stringLiteral: version)

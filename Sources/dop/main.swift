@@ -1,7 +1,7 @@
 import Foundation
 import Basic
 import Utility
-import DopTool
+import Tool
 
 // TODO: A higher-level 'CommandHandler' is needed.
 // https://www.hackingwithswift.com/articles/44/apple-s-new-utility-library-will-power-up-command-line-apps
@@ -18,6 +18,7 @@ do {
 //    let numbers = initParser.add(positional: "numbers", kind: [Int].self, usage: "List of numbers to operate with.")
     
     parser.add(subparser: "init", overview: "Initialize the package for managegement by dop")
+    parser.add(subparser: "init-helm", overview: "Initialize helm support files")
     parser.add(subparser: "login", overview: "Connect to IBM Cloud")
     parser.add(subparser: "build-executable", overview: "Build the release executable") // TODO: rename to build-executable
     parser.add(subparser: "run-executable", overview: "Run the release executable locally")
@@ -37,6 +38,9 @@ do {
     case "init":
         // result.get(numbers)!
         InitJob(project: project).run()
+
+    case "init-helm":
+        InitHelmJob(project: project).run()
 
     case "clean":
         CleanJob().run()

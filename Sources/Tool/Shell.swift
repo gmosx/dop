@@ -2,8 +2,18 @@ import Foundation
 import Basic
 import Utility
 
+// TODO: Rename to ShellClient, ShellDriver or ShellUtils?
 // TODO: Extract to other package.
 // TODO: support streaming output.
+// TODO: verbose option.
+
+extension String {
+    func escapingForShell() -> String {
+        return self
+            .replacingOccurrences(of: "&", with: "\\&")
+            .replacingOccurrences(of: "!", with: "\\!")
+    }
+}
 
 public class Shell {
     public init() {
@@ -39,5 +49,30 @@ public class Shell {
         } catch {
             print(error.localizedDescription)
         }
+    }
+    
+    public func ensureDirectoryExists(atPath path: String) throws {
+        let fm = FileManager.default
+
+        if !fm.fileExists(atPath: path) {
+            print("Created \(path)")
+            try fm.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+        }
+    }
+    
+    // TODO: allow override/not-override
+    public func writeTextFile(atPath path: String, contents: String) throws {
+        try contents.write(to: URL(fileURLWithPath: path), atomically: false, encoding: .utf8)
+        print("Created \(path)")
+    }
+    
+    public func removeFile(atPath path: String) throws {
+        try FileManager.default.removeItem(atPath: path)
+        print("Removed \(path)")
+    }
+
+    public func removeDirectory(atPath path: String) throws {
+        try FileManager.default.removeItem(atPath: path)
+        print("Removed \(path)")
     }
 }

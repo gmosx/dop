@@ -1,5 +1,8 @@
 # TODO
 
+* interactive dop deploy, asks questions
+
+* generate helm chart
 
 * dop install
   - use it to install dop into /usr/local/bin
