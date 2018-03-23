@@ -1,6 +1,6 @@
 import Foundation
 
-public class InitHelmJob: BaseToolJob {
+public class InitHelmJob: DevopsJob {
     private var chartYAMLContents: String {
         return (
             """

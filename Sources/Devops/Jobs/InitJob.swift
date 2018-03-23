@@ -8,7 +8,7 @@ import Foundation
 // TODO: emit instructions how-to-deploy, etc.
 
 /// Intialize the package for mangement by `dop`.
-public class InitJob: BaseToolJob {
+public class InitJob: DevopsJob {
     private var dockerfileContents: String {
         return (
             """

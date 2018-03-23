@@ -5,7 +5,7 @@ import Utility
 // TODO: should update helm values.yaml, Chart.yaml
 
 /// Increment the version number to a new, unique value.
-public final class BumpVersionJob: BaseToolJob {
+public final class BumpVersionJob: DevopsJob {
     public func tagGitRepo() {
         let shell = Shell()
 

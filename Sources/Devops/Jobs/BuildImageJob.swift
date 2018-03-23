@@ -1,11 +1,12 @@
 import Foundation
 
+// TODO: accept development/release options
 // TODO: combine BumpVersionJob (with --bump)
 // TODO: combine PushImageJob (with --push parameter)
 // -> nah, separate deploy-image 'workflow'
 
 /// Build the release image
-public final class BuildImageJob: BaseToolJob {
+public final class BuildImageJob: DevopsJob {
     public func buildExecutable() {
         let shell = Shell()
 
