@@ -1,6 +1,7 @@
 import Foundation
 import Utility
 
+// TODO: Interactively ask for the value if missing!
 func env(_ name: String) -> String {
     if let value = ProcessInfo.processInfo.environment[name] {
         return value
@@ -79,11 +80,11 @@ public class Project {
     }
     
     public var imageName: String {
-        return "\(registryNamespace)/(name)"
+        return "\(registryNamespace)/\(name)"
     }
 
     public var fullImageName: String {
-        return "\(registry)/\(registryNamespace)/(name):\(version)"
+        return "\(registry)/\(registryNamespace)/\(name):\(version)"
     }
 
     public var chartPath: String {

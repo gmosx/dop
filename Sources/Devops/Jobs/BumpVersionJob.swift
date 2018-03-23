@@ -6,6 +6,18 @@ import Utility
 
 /// Increment the version number to a new, unique value.
 public final class BumpVersionJob: BaseToolJob {
+    public func tagGitRepo() {
+        let shell = Shell()
+
+        shell.execute(script: (
+            """
+            git tag \(project.version)
+            """
+        ))
+
+        print("Tagged git repo: \(project.version)")
+    }
+
     public override func run() {
         do {
             project.bumpVersion()
@@ -20,6 +32,8 @@ public final class BumpVersionJob: BaseToolJob {
                 try dopfileContents.write(to: URL(fileURLWithPath: "dop.json"), atomically: false, encoding: .utf8)
                 print("DONE")
             }
+
+            tagGitRepo()
         } catch {
             print(error.localizedDescription)
         }

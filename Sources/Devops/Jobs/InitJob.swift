@@ -16,7 +16,7 @@ public class InitJob: BaseToolJob {
             LABEL Description="\(project.description)"
             MAINTAINER \(project.maintainer ?? "Unknown")
             
-            RUN apt-get uprojectate # && apt-get install -y libpq-dev
+            RUN apt-get update # && apt-get install -y libpq-dev
 
             WORKDIR /root
 
