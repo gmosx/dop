@@ -38,14 +38,15 @@ public class Shell {
         let result = try process.waitUntilExit()
 
         if let output = try? result.utf8Output() {
-            
+            print(output, terminator: "")
         }
-        print((try? result.utf8Output()) ?? "-")
 
         switch result.exitStatus {
         case .terminated(let status):
             if status != 0 {
-                print((try? result.utf8stderrOutput()) ?? "-")
+                if let output = try? result.utf8stderrOutput() {
+                    print(output, terminator: "")
+                }
                 break
             }
 

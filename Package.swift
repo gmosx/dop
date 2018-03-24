@@ -14,7 +14,6 @@ let package = Package(
             dependencies: [
                 "Utility",
                 "Common",
-                "SwiftShell",
             ]
         ),
         .target(
