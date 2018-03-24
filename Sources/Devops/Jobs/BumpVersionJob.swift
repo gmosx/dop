@@ -15,6 +15,14 @@ public final class BumpVersionJob: DevopsJob {
             try shell.writeTextFile(atPath: "dop.json", contents: dopfileContents)
         }
     }
+
+    public func writeUpdatedHelmFiles() throws {
+        let templates = Templates(project: project)
+
+        try shell.writeTextFile(atPath: "\(project.chartPath)/Chart.yaml", contents: templates.chartYAMLContents)
+        try shell.writeTextFile(atPath: "\(project.chartPath)/values.yaml", contents: templates.valuesYAMLContents)
+    }
+    
     public func tagGitRepo() throws {
         try shell.execute("git tag \(project.version)")
     }
@@ -26,6 +34,7 @@ public final class BumpVersionJob: DevopsJob {
             print("New version: \(project.version)")
 
             try updateDopfile()
+            try writeUpdatedHelmFiles()
             try tagGitRepo()
         } catch {
             print(error.localizedDescription)
