@@ -1,5 +1,4 @@
 import Foundation
-import SwiftShell
 
 /// Push the release image to the registry
 public final class PushImageJob: DevopsJob {

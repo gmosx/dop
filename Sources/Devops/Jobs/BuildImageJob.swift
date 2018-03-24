@@ -18,7 +18,9 @@ public final class BuildImageJob: DevopsJob {
                 """
                 docker rm -f build-swift
                 docker run -it -d --name build-swift -v \(project.repoPath):\(project.repoPath) reizu/ubuntu-build-swift /bin/bash
-                docker exec -i build-swift sh -c "cd \(project.repoPath)/\(project.packagePath) && rm -rf .build && swift package clean && swift package update && swift build --configuration=release"
+                docker exec -i build-swift sh -c "cd \(project.repoPath)/\(project.packagePath) && rm -rf .build && swift package clean"
+                docker exec -i build-swift sh -c "cd \(project.repoPath)/\(project.packagePath) && swift package update"
+                docker exec -i build-swift sh -c "cd \(project.repoPath)/\(project.packagePath) && swift build --configuration=release"
                 """
             )
         } catch {

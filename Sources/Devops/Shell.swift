@@ -1,7 +1,6 @@
 import Foundation
 import Basic
 import Utility
-import SwiftShell
 
 // TODO: Rename to ShellClient, ShellDriver or ShellUtils?
 // TODO: Extract to other package.
@@ -29,18 +28,32 @@ public class Shell {
         }
     }
 
-    public func execute(_ command: String) throws {
+    @discardableResult
+    public func execute(_ command: String) throws -> ProcessResult {
         log(command)
-        
-        let command = runAsync(bash: command)
 
-        command.stdout.onOutput { stdout in
-            if let output = stdout.readSome() {
-                print(output, terminator: "")
+        let process = Process(arguments: ["sh", "-c", command])
+        try process.launch()
+
+        let result = try process.waitUntilExit()
+
+        if let output = try? result.utf8Output() {
+            
+        }
+        print((try? result.utf8Output()) ?? "-")
+
+        switch result.exitStatus {
+        case .terminated(let status):
+            if status != 0 {
+                print((try? result.utf8stderrOutput()) ?? "-")
+                break
             }
+
+        default:
+            break
         }
 
-        try command.finish()
+        return result
     }
 
     public func execute(script: String) throws {
@@ -48,38 +61,6 @@ public class Shell {
             try execute(String(scriptCommand))
         }
     }
-
-//    @discardableResult
-//    public func execute(command: String) throws -> ProcessResult {
-//        // https://github.com/apple/swift-package-manager/blob/master/Sources/Basic/Process.swift
-//        let process = Process(arguments: ["sh", "-c", command])
-//        try process.launch()
-//        let result = try process.waitUntilExit()
-//        return result
-//    }
-//
-//    public func execute(script: String) {
-//        do {
-//            for scriptCommand in script.split(separator: "\n") {
-//                print("\(scriptCommand)")
-//                let result = try execute(command: String(scriptCommand))
-//                print((try? result.utf8Output()) ?? "-")
-//
-//                switch result.exitStatus {
-//                case .terminated(let status):
-//                    if status != 0 {
-//                        print((try? result.utf8stderrOutput()) ?? "-")
-//                        break
-//                    }
-//
-//                default:
-//                    continue
-//                }
-//            }
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//    }
 
     public func ensureDirectoryExists(atPath path: String) throws {
         let fm = FileManager.default
