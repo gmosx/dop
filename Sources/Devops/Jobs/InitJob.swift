@@ -53,19 +53,19 @@ public class InitJob: DevopsJob {
             apiVersion: extensions/v1beta1
             kind: Deployment
             metadata:
-            name: \(project.name)-deployment
+                name: \(project.name)-deployment
             spec:
-            replicas: 1
-            template:
-            metadata:
-            labels:
-            app: \(project.name)
-            spec:
-            containers:
-            - name: \(project.name)
-            image: registry.ng.bluemix.net/reizu/\(project.name):{{ .Values.image.tag }}
-            # ports:
-            # - containerPort: 80
+                replicas: 1
+                template:
+                    metadata:
+                        labels:
+                            app: \(project.name)
+                    spec:
+                        containers:
+                            - name: \(project.name)
+                            image: registry.ng.bluemix.net/reizu/\(project.name):{{ .Values.image.tag }}
+                            # ports:
+                            # - containerPort: 80
             """
         )
     }
