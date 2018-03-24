@@ -1,6 +1,8 @@
 import Foundation
 import Common
 
+// TODO: also clean help packages?
+
 public class CleanJob: DevopsJob {
     public override func run() {
         do {

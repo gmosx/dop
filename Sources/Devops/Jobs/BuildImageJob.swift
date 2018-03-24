@@ -4,9 +4,16 @@ import Foundation
 // TODO: combine BumpVersionJob (with --bump)
 // TODO: combine PushImageJob (with --push parameter)
 // -> nah, separate deploy-image 'workflow'
+// TODO: Automatically bump version if version == pushedversion (i.e. git tag)
 
 /// Build the release image
 public final class BuildImageJob: DevopsJob {
+    let shouldBumpVesion: Bool
+
+    public init(project: Project, bump: Bool = false) {
+        self.shouldBumpVesion = bump
+        super.init(project: project)
+    }
     public func buildExecutable() throws {
         // TODO: Keep the Dockerfile-tools image in the directory, like idt
         // TODO: try to avoid the hard-coded home paths. -v host-path:container-path
@@ -32,6 +39,10 @@ public final class BuildImageJob: DevopsJob {
 
     public override func run() {
         do {
+            if shouldBumpVesion {
+                BumpVersionJob(project: project).run()
+            }
+            
             try buildExecutable()
             try buildImage()
         } catch {
