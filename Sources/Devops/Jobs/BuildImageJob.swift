@@ -12,23 +12,32 @@ public final class BuildImageJob: DevopsJob {
 
         // TODO: Keep the Dockerfile-tools image in the directory, like idt
         // TODO: try to avoid the hard-coded home paths. -v host-path:container-path
-        shell.execute(script: (
-            """
-            docker rm -f build-swift
-            docker run -it -d --name build-swift -v \(project.repoPath):\(project.repoPath) reizu/ubuntu-build-swift /bin/bash
-            docker exec -i build-swift sh -c "cd \(project.repoPath)/\(project.packagePath) && rm -rf .build && swift package clean && swift package update && swift build --configuration=release"
-            """
-        ))
+
+        do {
+            try shell.execute(script:
+                """
+                docker rm -f build-swift
+                docker run -it -d --name build-swift -v \(project.repoPath):\(project.repoPath) reizu/ubuntu-build-swift /bin/bash
+                docker exec -i build-swift sh -c "cd \(project.repoPath)/\(project.packagePath) && rm -rf .build && swift package clean && swift package update && swift build --configuration=release"
+                """
+            )
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 
     public func buildImage() {
         let shell = Shell()
 
-        shell.execute(script: (
-            """
-            docker build -t \(project.fullImageName) .
-            """
-        ))
+        do {
+            try shell.execute(script:
+                """
+                docker build -t \(project.fullImageName) .
+                """
+            )
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 
     public override func run() {

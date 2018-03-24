@@ -1,6 +1,7 @@
 import Foundation
 import Basic
 import Utility
+import SwiftShell
 
 // TODO: Rename to ShellClient, ShellDriver or ShellUtils?
 // TODO: Extract to other package.
@@ -16,41 +17,70 @@ extension String {
 }
 
 public class Shell {
-    public init() {
-    }
-    
-    @discardableResult
-    public func execute(command: String) throws -> ProcessResult {
-        // https://github.com/apple/swift-package-manager/blob/master/Sources/Basic/Process.swift
-        let process = Process(arguments: ["sh", "-c", command])
-        try process.launch()
-        let result = try process.waitUntilExit()
-        return result
-    }
-    
-    public func execute(script: String) {
-        do {
-            for scriptCommand in script.split(separator: "\n") {
-                print("\(scriptCommand)")
-                let result = try execute(command: String(scriptCommand))
-                print((try? result.utf8Output()) ?? "-")
+    let isVerbose: Bool
 
-                switch result.exitStatus {
-                case .terminated(let status):
-                    if status != 0 {
-                        print((try? result.utf8stderrOutput()) ?? "-")
-                        break
-                    }
+    public init(verbose: Bool = true) {
+        self.isVerbose = verbose
+    }
 
-                default:
-                    continue
-                }
-            }
-        } catch {
-            print(error.localizedDescription)
+    func log(_ text: String) {
+        if isVerbose {
+            print(text)
         }
     }
-    
+
+    public func execute(_ command: String) throws {
+        log(command)
+        
+        let command = runAsync(bash: command)
+
+        command.stdout.onOutput { stdout in
+            if let output = stdout.readSome() {
+                print(output, terminator: "")
+            }
+        }
+
+        try command.finish()
+    }
+
+    public func execute(script: String) throws {
+        for scriptCommand in script.split(separator: "\n") {
+            try execute(String(scriptCommand))
+        }
+    }
+
+//    @discardableResult
+//    public func execute(command: String) throws -> ProcessResult {
+//        // https://github.com/apple/swift-package-manager/blob/master/Sources/Basic/Process.swift
+//        let process = Process(arguments: ["sh", "-c", command])
+//        try process.launch()
+//        let result = try process.waitUntilExit()
+//        return result
+//    }
+//
+//    public func execute(script: String) {
+//        do {
+//            for scriptCommand in script.split(separator: "\n") {
+//                print("\(scriptCommand)")
+//                let result = try execute(command: String(scriptCommand))
+//                print((try? result.utf8Output()) ?? "-")
+//
+//                switch result.exitStatus {
+//                case .terminated(let status):
+//                    if status != 0 {
+//                        print((try? result.utf8stderrOutput()) ?? "-")
+//                        break
+//                    }
+//
+//                default:
+//                    continue
+//                }
+//            }
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+//    }
+
     public func ensureDirectoryExists(atPath path: String) throws {
         let fm = FileManager.default
 

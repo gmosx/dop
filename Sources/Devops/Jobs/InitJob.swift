@@ -3,8 +3,6 @@ import Foundation
 // TODO: render Dockerfile, help charts, how-to-deploy, etc.
 // TODO: check if files exist
 // TODO: add --force option
-// TODO: consider emitting a templetized deployment.yaml
-// TODO: consider renaming to apply.yaml
 // TODO: emit instructions how-to-deploy, etc.
 
 /// Intialize the package for mangement by `dop`.

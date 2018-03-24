@@ -6,16 +6,10 @@ import Utility
 
 /// Increment the version number to a new, unique value.
 public final class BumpVersionJob: DevopsJob {
-    public func tagGitRepo() {
+    public func tagGitRepo() throws {
         let shell = Shell()
 
-        shell.execute(script: (
-            """
-            git tag \(project.version)
-            """
-        ))
-
-        print("Tagged git repo: \(project.version)")
+        try shell.execute("git tag \(project.version)")
     }
 
     public override func run() {
@@ -33,7 +27,7 @@ public final class BumpVersionJob: DevopsJob {
                 print("DONE")
             }
 
-            tagGitRepo()
+            try tagGitRepo()
         } catch {
             print(error.localizedDescription)
         }
