@@ -5,7 +5,6 @@ import Utility
 // TODO: Rename to ShellClient, ShellDriver or ShellUtils?
 // TODO: Extract to other package.
 // TODO: support streaming output.
-// TODO: verbose option.
 
 extension String {
     func escapingForShell() -> String {

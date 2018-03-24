@@ -1,5 +1,6 @@
 import Foundation
 
+// TODO: rename to init-project
 // TODO: render Dockerfile, help charts, how-to-deploy, etc.
 // TODO: check if files exist
 // TODO: add --force option

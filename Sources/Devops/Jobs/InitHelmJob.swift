@@ -1,7 +1,7 @@
 import Foundation
 
 public class InitHelmJob: DevopsJob {
-    private var chartYAMLContents: String {
+    public var chartYAMLContents: String {
         return (
             """
             apiVersion: v1
@@ -12,7 +12,7 @@ public class InitHelmJob: DevopsJob {
         )
     }
 
-    private var valuesYAMLContents: String {
+    public var valuesYAMLContents: String {
         return (
             """
             tag: \(project.version)
@@ -20,7 +20,7 @@ public class InitHelmJob: DevopsJob {
         )
     }
 
-    private var deploymentYAMLContents: String {
+    public var deploymentYAMLContents: String {
         return (
             """
             apiVersion: extensions/v1beta1

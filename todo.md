@@ -2,7 +2,7 @@
 
 * interactive dop deploy, asks questions
 
-* generate helm chart
+* add lint command
 
 * dop install
   - use it to install dop into /usr/local/bin
@@ -14,9 +14,6 @@
 * Write some tests
 
 * colored CLI messages
-
-* keep repoPath parameter
-  -> also as environment variable
 
 * consider alternative name `cop` (cloud operator)
 
@@ -37,3 +34,6 @@
 ## Done
 
 * Add script that installs into /usr/local/bin
+* generate helm chart
+* keep repoPath parameter
+  -> also as environment variable
