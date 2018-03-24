@@ -1,5 +1,7 @@
 # TODO
 
+* rename package to DopTool, swift-dop-tool
+
 * interactive dop deploy, asks questions
 
 * add lint command
