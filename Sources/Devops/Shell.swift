@@ -86,4 +86,18 @@ public class Shell {
         try FileManager.default.removeItem(atPath: path)
         print("Removed \(path)")
     }
+
+    public func confirm(_ message: String) -> Bool {
+        print("\(message) [yes/NO]", terminator: " ")
+
+        let didConfirm: Bool
+
+        if let input = readLine() {
+            didConfirm = input.lowercased() == "yes"
+        } else {
+            didConfirm = false
+        }
+
+        return didConfirm
+    }
 }
