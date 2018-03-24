@@ -22,7 +22,8 @@ public final class BumpVersionJob: DevopsJob {
         try shell.writeTextFile(atPath: "\(project.chartPath)/Chart.yaml", contents: templates.chartYAMLContents)
         try shell.writeTextFile(atPath: "\(project.chartPath)/values.yaml", contents: templates.valuesYAMLContents)
     }
-    
+
+    // TODO: consider tagging only on image-push
     public func tagGitRepo() throws {
         try shell.execute("git tag \(project.version)")
     }
