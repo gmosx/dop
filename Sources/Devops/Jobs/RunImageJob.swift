@@ -3,8 +3,6 @@ import Foundation
 /// Runs the container image.
 public final class RunImageJob: DevopsJob {
     public override func run() {
-        let shell = Shell()
-
         do {
             try shell.execute(script:
                 """

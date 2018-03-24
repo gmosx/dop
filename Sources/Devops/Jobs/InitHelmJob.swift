@@ -45,8 +45,6 @@ public class InitHelmJob: DevopsJob {
     
     public override func run() {
         do {
-            let shell = Shell()
-            
             try shell.ensureDirectoryExists(atPath: project.chartPath)
             try shell.writeTextFile(atPath: "\(project.chartPath)/Chart.yaml", contents: chartYAMLContents)
             try shell.writeTextFile(atPath: "\(project.chartPath)/values.yaml", contents: valuesYAMLContents)

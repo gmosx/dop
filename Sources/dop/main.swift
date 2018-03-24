@@ -42,7 +42,7 @@ do {
         InitHelmJob(project: project).run()
 
     case "clean":
-        CleanJob().run()
+        CleanJob(project: project).run()
 
     case "build-image":
         BuildImageJob(project: project).run()

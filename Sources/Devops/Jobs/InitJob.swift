@@ -29,8 +29,6 @@ public class InitJob: DevopsJob {
 
     public override func run() {
         do {
-            let shell = Shell()
-
             try shell.writeTextFile(atPath: "Dockerfile", contents: dockerfileContents)
             
             InitHelmJob(project: project).run()
