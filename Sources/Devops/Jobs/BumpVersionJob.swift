@@ -32,7 +32,7 @@ public final class BumpVersionJob: DevopsJob {
         do {
             project.bumpVersion()
 
-            print("New version: \(project.version)")
+            print("Bumped version to \(project.version)")
 
             try updateDopfile()
             try writeUpdatedHelmFiles()

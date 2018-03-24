@@ -1,3 +1,6 @@
 # Dop
 
-General dev-ops tool. Typically used to deploy containers to the cloud.
+Automation for common 'Devops' workflows.
+
+(c) 2018 George Moschovitis
+
