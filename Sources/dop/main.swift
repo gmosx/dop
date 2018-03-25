@@ -6,17 +6,11 @@ import Devops
 // TODO: A higher-level 'CommandHandler' is needed.
 // https://www.hackingwithswift.com/articles/44/apple-s-new-utility-library-will-power-up-command-line-apps
 
-guard let project = loadProject() else {
-    print("Cannot load `dop.json`")
-    exit(1)
-}
-
 do {
+    let project = try Project(from: URL(fileURLWithPath: "dop.json"))
+
     let parser = ArgumentParser(usage: "subcommand <options>", overview: "Support devops workflows")
 
-//    let initParser = parser.add(subparser: "init", overview: "Initialize the package for managegement by dop")
-//    let numbers = initParser.add(positional: "numbers", kind: [Int].self, usage: "List of numbers to operate with.")
-    
     parser.add(subparser: "init", overview: "Initialize the package for managegement")
 
     parser.add(subparser: "login", overview: "Connect to IBM Cloud")

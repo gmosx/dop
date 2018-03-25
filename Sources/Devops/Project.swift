@@ -1,8 +1,9 @@
 import Foundation
+import struct Foundation.URL
 import Utility
 
 // TODO: Interactively ask for the value if missing!
-func env(_ name: String) -> String {
+fileprivate func env(_ name: String) -> String {
     if let value = ProcessInfo.processInfo.environment[name] {
         return value
     } else {
@@ -17,6 +18,14 @@ public class Project {
 
     public init(descriptor: ProjectDescriptor) {
         self.descriptor = descriptor
+    }
+
+    public convenience init(from url: URL) throws {
+        let descriptorData = try Data(contentsOf: url)
+        let jsonDecoder = JSONDecoder()
+        let descriptor = try jsonDecoder.decode(ProjectDescriptor.self, from: descriptorData)
+
+        self.init(descriptor: descriptor)
     }
     
     public var name: String {
@@ -100,17 +109,3 @@ public class Project {
     }
 }
 
-public func loadProject() -> Project? {
-    do {
-        let fileURL = URL(fileURLWithPath: "dop.json")
-        let descriptorData = try Data(contentsOf: fileURL)
-
-        let jsonDecoder = JSONDecoder()
-        let descriptor = try jsonDecoder.decode(ProjectDescriptor.self, from: descriptorData)
-
-        return Project(descriptor: descriptor)
-    } catch {
-        print(error.localizedDescription)
-        return nil
-    }
-}
