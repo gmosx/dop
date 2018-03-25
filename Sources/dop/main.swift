@@ -3,6 +3,9 @@ import Basic
 import Utility
 import Devops
 
+let toolVersion = "0.9.0"
+
+// TODO: dump the tool version
 // TODO: A higher-level 'CommandHandler' is needed.
 // https://www.hackingwithswift.com/articles/44/apple-s-new-utility-library-will-power-up-command-line-apps
 

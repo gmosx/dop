@@ -1,5 +1,7 @@
 import Foundation
 
+// TODO: stop docker container on-exit!
+
 /// Runs the container image.
 public final class RunImageJob: DevopsJob {
     public override func run() {

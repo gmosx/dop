@@ -5,6 +5,7 @@ import Foundation
 // TODO: combine PushImageJob (with --push parameter)
 // -> nah, separate deploy-image 'workflow'
 // TODO: Automatically bump version if version == pushedversion (i.e. git tag)
+// TODO: stop docker container on exit
 
 /// Build the release image
 public final class BuildImageJob: DevopsJob {

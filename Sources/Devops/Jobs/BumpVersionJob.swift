@@ -2,6 +2,7 @@ import Foundation
 import Utility
 
 // TODO: consider renaming to updateVersion, support increment/decrement, etc
+// TODO: commit after bumping versions, before tagging
 
 /// Increment the version number to a new, unique value.
 public final class BumpVersionJob: DevopsJob {
