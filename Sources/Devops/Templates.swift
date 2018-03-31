@@ -6,13 +6,17 @@ public class Templates {
     }
 
     public var dockerfileContents: String {
+        let aptGetPackages = project.systemPackages.isEmpty
+            ? ""
+            : "\n\(project.systemPackages.map({ "RUN apt-get install -y \($0)"}).joined(separator: "\n"))"
+
         return (
             """
             FROM ibmcom/swift-ubuntu-runtime:4.0.3
             LABEL Description="\(project.description)"
             MAINTAINER \(project.maintainer ?? "Unknown")
-
-            RUN apt-get update # && apt-get install -y libpq-dev
+            
+            RUN apt-get update\(aptGetPackages)
 
             WORKDIR /root
 

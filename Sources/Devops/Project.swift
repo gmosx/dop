@@ -47,7 +47,11 @@ public class Project {
     public var executableName: String {
         return descriptor.executableName ?? name
     }
-    
+
+    public var systemPackages: [String] {
+        return descriptor.systemPackages ?? []
+    }
+
     public var repoPath: String {
         return descriptor.repoPath ?? env("DOP_REPO_PATH")
     }
