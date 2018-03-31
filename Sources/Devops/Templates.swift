@@ -66,4 +66,45 @@ public class Templates {
             """
         )
     }
+    
+    public var devopsFileContents: String {
+        return (
+            """
+            # Devops workflows
+
+            ## Deploy a new release
+
+            ### Preparation
+            
+            ```
+            dop version-bump
+            dop image-build
+            eval $(dop login)
+            dop image-push
+            ```
+            
+            ### Manual deployment
+            
+            ```
+            helm template \(project.chartPath)
+            kubectl apply -f deployment.yaml
+            ```
+            
+            ### Deployment with Helm
+            
+            ```
+            helm package \(project.chartPath)
+            helm upgrade \(project.helmPackagePath)
+            ```
+            
+            ## Useful kubectl commands
+            
+            ```
+            kubectl get deployment
+            kubectl get pods
+            kubectl logs <pod-name>
+            ```
+            """
+        )
+    }
 }

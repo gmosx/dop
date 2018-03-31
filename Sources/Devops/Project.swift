@@ -100,6 +100,10 @@ public class Project {
         return "chart/\(name)"
     }
 
+    public var helmPackagePath: String {
+        return "\(name)-\(version).tgz"
+    }
+    
     @discardableResult
     public func bumpVersion() -> String {
         let currentVersion = Version(stringLiteral: version)

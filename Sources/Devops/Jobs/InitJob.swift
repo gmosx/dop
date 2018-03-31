@@ -13,6 +13,7 @@ public class InitJob: DevopsJob {
             let templates = Templates(project: project)
 
             try shell.writeTextFile(atPath: "Dockerfile", contents: templates.dockerfileContents)
+            try shell.writeTextFile(atPath: "devops.md", contents: templates.devopsFileContents)
 
             try shell.ensureDirectoryExists(atPath: project.chartPath)
             try shell.writeTextFile(atPath: "\(project.chartPath)/Chart.yaml", contents: templates.chartYAMLContents)
