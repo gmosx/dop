@@ -6,7 +6,7 @@ public class Templates {
     }
 
     public var dockerfileContents: String {
-        let aptGetPackages = project.systemPackages.isEmpty
+        let installAptPackages = project.systemPackages.isEmpty
             ? ""
             : "\n\(project.systemPackages.map({ "RUN apt-get install -y \($0)"}).joined(separator: "\n"))"
 
@@ -16,7 +16,7 @@ public class Templates {
             LABEL Description="\(project.description)"
             MAINTAINER \(project.maintainer ?? "Unknown")
             
-            RUN apt-get update\(aptGetPackages)
+            RUN apt-get update\(installAptPackages)
 
             WORKDIR /root
 
