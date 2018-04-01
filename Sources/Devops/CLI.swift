@@ -3,7 +3,15 @@ import Utility
 // TODO: consider CLIHandler?
 // TODO: subsume CLI into CLICommand?
 
-public class CLIRouter {
+//public protocol CLIRouter {
+//    var name: String { get }
+//    var description: String { get }
+//    var usage: String { get }
+//
+//    func route(result: ArgumentParser.Result)
+//}
+
+public class CLI {
     internal let command: CLICommand
 
     public init(command: CLICommand) {
@@ -19,16 +27,7 @@ public class CLIRouter {
 
     public func route(arguments: [String]? = nil) throws {
         let result = try argumentParser.parse(arguments ?? Array(CommandLine.arguments.dropFirst()))
-
-        if let subcommandName = result.subparser(argumentParser) {
-            if let subcommand = command.subcommands[subcommandName] {
-                subcommand.run(result: result)
-            } else {
-                print("Unrecognized command '\(subcommandName)'")
-            }
-        } else {
-            command.run(result: result)
-        }
+        command.route(result: result)
     }
 }
 
@@ -50,8 +49,8 @@ open class CLICommand {
         self.argumentParser = argumentParser
     }
 
-    /// Override this method to setup options, flags, subcommands, etc.
     open func setup() {
+        // Override this method to setup options, flags, subcommands, etc.
         return
     }
 
@@ -60,6 +59,18 @@ open class CLICommand {
         subcommand.setup(argumentParser: subparser)
         subcommand.setup()
         subcommands[subcommand.name] = subcommand
+    }
+
+    public func route(result: ArgumentParser.Result) {
+        if let subcommandName = result.subparser(argumentParser) {
+            if let subcommand = subcommands[subcommandName] {
+                subcommand.route(result: result)
+            } else {
+                print("Unrecognized command '\(subcommandName)'")
+            }
+        } else {
+            run(result: result)
+        }
     }
 
     open func run(result: ArgumentParser.Result) {
