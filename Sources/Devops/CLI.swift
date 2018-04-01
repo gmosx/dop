@@ -1,7 +1,7 @@
 import Utility
 
 // TODO: consider CLIHandler?
-// TODO: subsube CLI into CLICommand?
+// TODO: subsume CLI into CLICommand?
 
 public class CLIRouter {
     internal let command: CLICommand
