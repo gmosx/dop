@@ -36,10 +36,14 @@ class DopCommand: DevopsCLICommand {
 
     override func run(result: ArgumentParser.Result) {
         if let _ = result.get(versionOption) {
-            print("Version \(toolVersion)")
+            showVersion()
         } else {
             argumentParser.printUsage(on: stdoutStream)
         }
+    }
+
+    func showVersion() {
+        print("Version \(toolVersion)")
     }
 }
 
