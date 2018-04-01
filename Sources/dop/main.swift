@@ -9,11 +9,9 @@ let toolVersion = "0.10.0"
 
 class DevopsCLICommand: CLICommand {
     let project: Project
-    let shell: Devops.Shell
 
     init(name: String, summary: String, usage: String? = nil, project: Project) {
         self.project = project
-        self.shell = Devops.Shell()
         super.init(name: name, summary: summary, usage: usage)
     }
 }
@@ -25,9 +23,7 @@ class DopCommand: DevopsCLICommand {
         self.init(name: "dop", summary: "Support devops workflows", project: project)
     }
 
-    override func setup(argumentParser: ArgumentParser) {
-        super.setup(argumentParser: argumentParser)
-
+    override func setup() {
         versionOption = argumentParser.add(option: "--version", shortName: "-v", kind: Bool.self, usage: "Show the version")
 
         add(subcommand: InitCommand(project: project))
@@ -86,9 +82,7 @@ class BuildImageCommand: DevopsCLICommand {
         self.init(name: "image-build", summary: "Build the container image", project: project)
     }
 
-    override func setup(argumentParser: ArgumentParser) {
-        super.setup(argumentParser: argumentParser)
-
+    override func setup() {
         bumpOption = argumentParser.add(option: "--bump", shortName: "-b", kind: Bool.self, usage: "Bump version before building image")
     }
 
@@ -141,8 +135,8 @@ final class DopCLITool {
     func run() {
         do {
             let project = try Project(from: URL(fileURLWithPath: "dop.json"))
-            let cli = CLI(command: DopCommand(project: project))
-            try cli.parse()
+            let cli = CLIRouter(command: DopCommand(project: project))
+            try cli.route()
         } catch let error as ArgumentParserError {
             print(error.description)
         } catch {

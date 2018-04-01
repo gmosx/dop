@@ -3,7 +3,7 @@ import Utility
 // TODO: consider CLIHandler?
 // TODO: subsube CLI into CLICommand?
 
-public class CLI {
+public class CLIRouter {
     internal let command: CLICommand
 
     public init(command: CLICommand) {
@@ -16,8 +16,8 @@ public class CLI {
         return command.argumentParser
     }
 
-    public func parse() throws {
-        let result = try argumentParser.parse(Array(CommandLine.arguments.dropFirst()))
+    public func route(arguments: [String]? = nil) throws {
+        let result = try argumentParser.parse(arguments ?? Array(CommandLine.arguments.dropFirst()))
 
         if let subcommandName = result.subparser(argumentParser) {
             if let subcommand = command.subcommands[subcommandName] {
@@ -47,6 +47,11 @@ open class CLICommand {
 
     open func setup(argumentParser: ArgumentParser) {
         self.argumentParser = argumentParser
+    }
+
+    /// Override this method to setup options, flags, subcommands, etc.
+    open func setup() {
+        return
     }
 
     public func add(subcommand: CLICommand) {
