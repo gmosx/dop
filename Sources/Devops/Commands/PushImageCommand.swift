@@ -6,6 +6,10 @@ class PushImageCommand: DevopsCLICommand {
     }
 
     override func run(result: ArgumentParser.Result) {
-        PushImageJob(project: project).run()
+        do {
+            try shell.execute("docker push \(project.fullImageName)")
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }

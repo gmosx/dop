@@ -6,6 +6,15 @@ class UpgradeReleaseCommand: DevopsCLICommand {
     }
 
     override func run(result: ArgumentParser.Result) {
-        UpgradeReleaseJob(project: project).run()
+        do {
+            try shell.execute(script:
+                """
+                helm template chart/\(project.name)
+                kubectl apply -f deployment.yaml
+                """
+            )
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
