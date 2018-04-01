@@ -46,7 +46,7 @@ open class CLICommand {
         self.subcommands = [:]
     }
 
-    open func setup(argumentParser: ArgumentParser) {
+    public func setup(argumentParser: ArgumentParser) {
         self.argumentParser = argumentParser
     }
 
