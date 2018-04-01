@@ -9,6 +9,7 @@ public class CLIRouter {
     public init(command: CLICommand) {
         let argumentParser = ArgumentParser(usage: command.usage ?? "subcommand <options>", overview: command.summary)
         command.setup(argumentParser: argumentParser)
+        command.setup()
         self.command = command
     }
 
@@ -57,6 +58,7 @@ open class CLICommand {
     public func add(subcommand: CLICommand) {
         let subparser = argumentParser.add(subparser: subcommand.name, overview: subcommand.summary)
         subcommand.setup(argumentParser: subparser)
+        subcommand.setup()
         subcommands[subcommand.name] = subcommand
     }
 

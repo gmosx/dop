@@ -3,10 +3,6 @@ import Basic
 import Utility
 import Devops
 
-let toolVersion = "0.10.0"
-
-// https://www.hackingwithswift.com/articles/44/apple-s-new-utility-library-will-power-up-command-line-apps
-
 class DevopsCLICommand: CLICommand {
     let project: Project
 
@@ -17,6 +13,8 @@ class DevopsCLICommand: CLICommand {
 }
 
 class DopCommand: DevopsCLICommand {
+    let toolVersion = "0.10.0"
+
     var versionOption: OptionArgument<Bool>!
 
     convenience init(project: Project) {
