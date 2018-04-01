@@ -8,7 +8,7 @@ public class Templates {
     public var dockerfileContents: String {
         let installAptPackages = project.systemPackages.isEmpty
             ? ""
-            : "\n\(project.systemPackages.map({ "RUN apt-get install -y \($0)"}).joined(separator: "\n"))"
+            : "\n\(project.systemPackages.map({ "RUN apt-get install -y \($0)" }).joined(separator: "\n"))"
 
         return (
             """

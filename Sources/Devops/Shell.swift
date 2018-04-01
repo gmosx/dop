@@ -70,13 +70,13 @@ public class Shell {
             try fm.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         }
     }
-    
+
     // TODO: allow override/not-override
     public func writeTextFile(atPath path: String, contents: String) throws {
         try contents.write(to: URL(fileURLWithPath: path), atomically: false, encoding: .utf8)
         print("Created \(path)")
     }
-    
+
     public func removeFile(atPath path: String) throws {
         try FileManager.default.removeItem(atPath: path)
         print("Removed \(path)")
