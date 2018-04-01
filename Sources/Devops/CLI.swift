@@ -1,15 +1,7 @@
 import Utility
 
+// TODO: extract to separate package
 // TODO: consider CLIHandler?
-// TODO: subsume CLI into CLICommand?
-
-//public protocol CLIRouter {
-//    var name: String { get }
-//    var description: String { get }
-//    var usage: String { get }
-//
-//    func route(result: ArgumentParser.Result)
-//}
 
 public class CLI {
     internal let command: CLICommand
