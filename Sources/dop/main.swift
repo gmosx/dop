@@ -133,19 +133,16 @@ class CleanCommand: DevopsCLICommand {
     }
 }
 
-final class DopCLITool {
-    func run() {
-        do {
-            let project = try Project(from: URL(fileURLWithPath: "dop.json"))
-            let cli = CLIRouter(command: DopCommand(project: project))
-            try cli.route()
-        } catch let error as ArgumentParserError {
-            print(error.description)
-        } catch {
-            print(error.localizedDescription)
-        }
+func main() {
+    do {
+        let project = try Project(from: URL(fileURLWithPath: "dop.json"))
+        let cli = CLIRouter(command: DopCommand(project: project))
+        try cli.route()
+    } catch let error as ArgumentParserError {
+        print(error.description)
+    } catch {
+        print(error.localizedDescription)
     }
 }
 
-let tool = DopCLITool()
-tool.run()
+main()
