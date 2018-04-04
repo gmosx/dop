@@ -7,12 +7,14 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-package-manager.git", from: "0.1.0"),
         .package(url: "https://github.com/reizu/swift-common.git", .branch("master")),
+        .package(url: "https://github.com/reizu/swift-cli-handler.git", .branch("master")),
     ],
     targets: [
         .target(
             name: "Devops",
             dependencies: [
                 "Utility",
+                "CLIHandler",
                 "Common",
             ]
         ),
@@ -20,6 +22,7 @@ let package = Package(
             name: "dop",
             dependencies: [
                 "Utility",
+                "CLIHandler",
                 "Devops",
             ]
         ),

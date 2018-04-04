@@ -7,7 +7,7 @@ import Utility
 // TODO: Automatically bump version if version == pushedversion (i.e. git tag)
 // TODO: stop docker container on exit
 
-class BuildImageCommand: DevopsCLICommand {
+class BuildImageCommand: DevopsCommand {
     var bumpOption: OptionArgument<Bool>!
 
     convenience init(project: Project) {

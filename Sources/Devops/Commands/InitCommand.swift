@@ -4,7 +4,7 @@ import Utility
 // TODO: check if files exist
 // TODO: add --force option
 
-class InitCommand: DevopsCLICommand {
+class InitCommand: DevopsCommand {
     convenience init(project: Project) {
         self.init(name: "init", summary: "Initialize the package for managegement", project: project)
     }

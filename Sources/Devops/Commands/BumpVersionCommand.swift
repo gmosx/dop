@@ -4,7 +4,7 @@ import Utility
 // TODO: consider renaming to updateVersion, support increment/decrement, etc
 // TODO: commit after bumping versions, before tagging
 
-class BumpVersionCommand: DevopsCLICommand {
+class BumpVersionCommand: DevopsCommand {
     convenience init(project: Project) {
         self.init(name: "version-bump", summary: "Bump the version", project: project)
     }

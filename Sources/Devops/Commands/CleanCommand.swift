@@ -2,7 +2,7 @@ import Utility
 
 // TODO: also clean helm packages?
 
-class CleanCommand: DevopsCLICommand {
+class CleanCommand: DevopsCommand {
     convenience init(project: Project) {
         self.init(name: "clean", summary: "Remove all generated files", project: project)
     }

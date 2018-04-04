@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "CLIHandler",
+        "repositoryURL": "https://github.com/reizu/swift-cli-handler.git",
+        "state": {
+          "branch": "master",
+          "revision": "69260789a90faff2ebafc41f36fc6f8dbc43b849",
+          "version": null
+        }
+      },
+      {
         "package": "Common",
         "repositoryURL": "https://github.com/reizu/swift-common.git",
         "state": {

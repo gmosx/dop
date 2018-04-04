@@ -2,7 +2,7 @@ import Foundation
 import Basic
 import Utility
 
-public class DopCommand: DevopsCLICommand {
+public class DopCommand: DevopsCommand {
     let toolVersion = "0.10.0"
 
     var versionOption: OptionArgument<Bool>!

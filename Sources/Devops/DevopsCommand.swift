@@ -1,4 +1,6 @@
-public class DevopsCLICommand: CLICommand {
+import CLIHandler
+
+public class DevopsCommand: CLICommand {
     let project: Project
     let shell: Shell
     

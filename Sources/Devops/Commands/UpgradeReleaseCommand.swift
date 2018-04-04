@@ -1,6 +1,6 @@
 import Utility
 
-class UpgradeReleaseCommand: DevopsCLICommand {
+class UpgradeReleaseCommand: DevopsCommand {
     convenience init(project: Project) {
         self.init(name: "release-upgrade", summary: "Upgrade a release", project: project)
     }

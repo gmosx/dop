@@ -1,6 +1,6 @@
 import Utility
 
-class LoginCommand: DevopsCLICommand {
+class LoginCommand: DevopsCommand {
     convenience init(project: Project) {
         self.init(name: "login", summary: "Connect to IBM Cloud", project: project)
     }
