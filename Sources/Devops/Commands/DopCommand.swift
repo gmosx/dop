@@ -16,6 +16,7 @@ public class DopCommand: DevopsCommand {
 
         add(subcommand: InitCommand(project: project))
         add(subcommand: LoginCommand(project: project))
+        add(subcommand: BuildToolsImageCommand(project: project))
         add(subcommand: BumpVersionCommand(project: project))
         add(subcommand: BuildImageCommand(project: project))
         add(subcommand: RunImageCommand(project: project))

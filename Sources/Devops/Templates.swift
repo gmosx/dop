@@ -5,18 +5,22 @@ public class Templates {
         self.project = project
     }
 
-    public var dockerfileContents: String {
+    private var aptGetUpdateRunCommand: String {
         let installAptPackages = project.systemPackages.isEmpty
             ? ""
             : "\n\(project.systemPackages.map({ "RUN apt-get install -y \($0)" }).joined(separator: "\n"))"
 
+        return "RUN apt-get update\(installAptPackages)"
+    }
+
+    public var dockerfileContents: String {
         return (
             """
-            FROM ibmcom/swift-ubuntu-runtime:4.0.3
+            FROM ibmcom/swift-ubuntu-runtime:\(project.swiftVersion)
             LABEL Description="\(project.description)"
             MAINTAINER \(project.maintainer ?? "Unknown")
             
-            RUN apt-get update\(installAptPackages)
+            \(aptGetUpdateRunCommand)
 
             WORKDIR /root
 
@@ -25,6 +29,18 @@ public class Templates {
             ENV LD_LIBRARY_PATH /usr/lib/swift/linux
 
             CMD bin/\(project.executableName)
+            """
+        )
+    }
+
+    public var dockerfileToolsContents: String {
+        return (
+            """
+            FROM ibmcom/swift-ubuntu:\(project.swiftVersion)
+            LABEL Description="Swift Tools Container for '\(project.name)'"
+            MAINTAINER \(project.maintainer ?? "Unknown")
+
+            \(aptGetUpdateRunCommand)
             """
         )
     }

@@ -43,7 +43,11 @@ public class Project {
     public var maintainer: String? {
         return descriptor.maintainer
     }
-    
+
+    public var swiftVersion: String {
+        return descriptor.swiftVersion ?? "4.1"
+    }
+
     public var executableName: String {
         return descriptor.executableName ?? name
     }
@@ -100,6 +104,10 @@ public class Project {
         return "\(registry)/\(registryNamespace)/\(name):\(version)"
     }
 
+    public var toolsImageName: String {
+        return "reizu/\(name)-tools"
+    }
+    
     public var chartPath: String {
         return "chart/\(name)"
     }

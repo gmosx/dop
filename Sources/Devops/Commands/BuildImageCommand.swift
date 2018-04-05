@@ -1,7 +1,6 @@
 import Utility
 
 // TODO: accept development/release options
-// TODO: combine BumpVersionJob (with --bump)
 // TODO: combine PushImageJob (with --push parameter)
 // -> nah, separate deploy-image 'workflow'
 // TODO: Automatically bump version if version == pushedversion (i.e. git tag)
@@ -19,16 +18,17 @@ class BuildImageCommand: DevopsCommand {
     }
 
     public func buildExecutable() throws {
-        // TODO: Keep the Dockerfile-tools image in the directory, like idt
         // TODO: try to avoid the hard-coded home paths. -v host-path:container-path
+
+        let toolsContainerName = "swift-tools"
 
         try shell.execute(script:
             """
-            docker rm -f build-swift
-            docker run -it -d --name build-swift -v \(project.repoPath):\(project.repoPath) reizu/ubuntu-build-swift /bin/bash
-            docker exec -i build-swift sh -c "cd \(project.repoPath)/\(project.packagePath) && rm -rf .build && swift package clean"
-            docker exec -i build-swift sh -c "cd \(project.repoPath)/\(project.packagePath) && swift package update"
-            docker exec -i build-swift sh -c "cd \(project.repoPath)/\(project.packagePath) && swift build --configuration=release"
+            docker rm -f \(toolsContainerName)
+            docker run -it -d --name \(toolsContainerName) -v \(project.repoPath):\(project.repoPath) \(project.toolsImageName) /bin/bash
+            docker exec -i \(toolsContainerName) sh -c "cd \(project.repoPath)/\(project.packagePath) && rm -rf .build && swift package clean"
+            docker exec -i \(toolsContainerName) sh -c "cd \(project.repoPath)/\(project.packagePath) && swift package update"
+            docker exec -i \(toolsContainerName) sh -c "cd \(project.repoPath)/\(project.packagePath) && swift build --configuration=release"
             """
         )
     }

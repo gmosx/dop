@@ -14,6 +14,7 @@ class InitCommand: DevopsCommand {
             let templates = Templates(project: project)
 
             try shell.writeTextFile(atPath: "Dockerfile", contents: templates.dockerfileContents)
+            try shell.writeTextFile(atPath: "Dockerfile-tools", contents: templates.dockerfileToolsContents)
             try shell.writeTextFile(atPath: "devops.md", contents: templates.devopsFileContents)
 
             try shell.ensureDirectoryExists(atPath: project.chartPath)

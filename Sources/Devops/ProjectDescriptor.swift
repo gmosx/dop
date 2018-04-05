@@ -9,6 +9,7 @@ public struct ProjectDescriptor: Codable {
     public var version: String
     public var description: String?
     public var maintainer: String?
+    public var swiftVersion: String?
     public var executableName: String?
     public var systemPackages: [String]?
     public var repoPath: String?
