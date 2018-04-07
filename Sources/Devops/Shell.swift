@@ -66,7 +66,7 @@ public class Shell {
         let fm = FileManager.default
 
         if !fm.fileExists(atPath: path) {
-            print("Created \(path)")
+            log("Created \(path)")
             try fm.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         }
     }
@@ -74,17 +74,17 @@ public class Shell {
     // TODO: allow override/not-override
     public func writeTextFile(atPath path: String, contents: String) throws {
         try contents.write(to: URL(fileURLWithPath: path), atomically: false, encoding: .utf8)
-        print("Created \(path)")
+        log("Created \(path)")
     }
 
     public func removeFile(atPath path: String) throws {
         try FileManager.default.removeItem(atPath: path)
-        print("Removed \(path)")
+        log("Removed \(path)")
     }
 
     public func removeDirectory(atPath path: String) throws {
         try FileManager.default.removeItem(atPath: path)
-        print("Removed \(path)")
+        log("Removed \(path)")
     }
 
     public func confirm(_ message: String) -> Bool {
