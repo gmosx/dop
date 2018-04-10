@@ -6,8 +6,7 @@ import Devops
 
 func main() {
     do {
-        let project = try Project(from: URL(fileURLWithPath: "dop.json"))
-        try CLIHandler().handle(CommandLine.arguments, with: DopCommand(project: project))
+        try CLIHandler().handle(CommandLine.arguments, with: DopCommand())
     } catch {
         print(error.localizedDescription)
     }

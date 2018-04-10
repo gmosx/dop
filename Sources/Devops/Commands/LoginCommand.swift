@@ -1,8 +1,8 @@
 import Utility
 
 class LoginCommand: DevopsCommand {
-    convenience init(project: Project) {
-        self.init(name: "login", summary: "Connect to IBM Cloud", project: project)
+    convenience init() {
+        self.init(name: "login", summary: "Connect to IBM Cloud")
     }
 
     override func run(result: ArgumentParser.Result) {

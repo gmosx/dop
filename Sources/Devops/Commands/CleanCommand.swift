@@ -3,8 +3,8 @@ import Utility
 // TODO: also clean helm packages?
 
 class CleanCommand: DevopsCommand {
-    convenience init(project: Project) {
-        self.init(name: "clean", summary: "Remove all generated files", project: project)
+    convenience init() {
+        self.init(name: "clean", summary: "Remove all generated files")
     }
 
     override func run(result: ArgumentParser.Result) {

@@ -1,13 +1,16 @@
 import CLIHandler
 import Shell
 
-public class DevopsCommand: CLICommand {
-    let project: Project
-    let shell: Shell
+class DevopsCommand: CLICommand {
+    var shell: Shell! = nil
+    var project: Project! = nil
 
-    init(name: String, summary: String, usage: String? = nil, project: Project) {
-        self.project = project
-        self.shell = Shell()
-        super.init(name: name, summary: summary, usage: usage)
+    override open func willRun() {
+        do {
+            shell = Shell()
+            project = try Project()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }

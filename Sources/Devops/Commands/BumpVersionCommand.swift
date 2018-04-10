@@ -5,8 +5,8 @@ import Utility
 // TODO: commit after bumping versions, before tagging
 
 class BumpVersionCommand: DevopsCommand {
-    convenience init(project: Project) {
-        self.init(name: "version-bump", summary: "Bump the version", project: project)
+    convenience init() {
+        self.init(name: "version-bump", summary: "Bump the version")
     }
 
     public func updateDopfile() throws {

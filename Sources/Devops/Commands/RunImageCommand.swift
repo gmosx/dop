@@ -3,8 +3,8 @@ import Utility
 // TODO: stop docker container on-exit!
 
 class RunImageCommand: DevopsCommand {
-    convenience init(project: Project) {
-        self.init(name: "image-run", summary: "Run the image as a local container", project: project)
+    convenience init() {
+        self.init(name: "image-run", summary: "Run the image as a local container")
     }
 
     override func run(result: ArgumentParser.Result) {

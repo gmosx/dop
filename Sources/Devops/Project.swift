@@ -20,7 +20,7 @@ public class Project {
         self.descriptor = descriptor
     }
 
-    public convenience init(from url: URL) throws {
+    public convenience init(from url: URL = URL(fileURLWithPath: "dop.json")) throws {
         let descriptorData = try Data(contentsOf: url)
         let jsonDecoder = JSONDecoder()
         let descriptor = try jsonDecoder.decode(ProjectDescriptor.self, from: descriptorData)

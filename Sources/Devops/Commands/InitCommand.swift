@@ -5,8 +5,8 @@ import Utility
 // TODO: add --force option
 
 class InitCommand: DevopsCommand {
-    convenience init(project: Project) {
-        self.init(name: "init", summary: "Initialize the package for managegement", project: project)
+    convenience init() {
+        self.init(name: "init", summary: "Initialize the package for managegement")
     }
 
     override func run(result: ArgumentParser.Result) {

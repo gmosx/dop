@@ -9,8 +9,8 @@ import Utility
 class BuildImageCommand: DevopsCommand {
     var bumpOption: OptionArgument<Bool>!
 
-    convenience init(project: Project) {
-        self.init(name: "image-build", summary: "Build the container image", project: project)
+    convenience init() {
+        self.init(name: "image-build", summary: "Build the container image")
     }
 
     override func setup() {
@@ -44,7 +44,9 @@ class BuildImageCommand: DevopsCommand {
     override func run(result: ArgumentParser.Result) {
         do {
             if let _ = result.get(bumpOption) {
-                BumpVersionCommand(project: project).run(result: result)
+                let bumpVersionCommand = BumpVersionCommand()
+                bumpVersionCommand.project = project
+                bumpVersionCommand.run(result: result)
             }
 
             try buildExecutable()

@@ -1,8 +1,8 @@
 import Utility
 
 class UpgradeReleaseCommand: DevopsCommand {
-    convenience init(project: Project) {
-        self.init(name: "release-upgrade", summary: "Upgrade a release", project: project)
+    convenience init() {
+        self.init(name: "release-upgrade", summary: "Upgrade a release")
     }
 
     override func run(result: ArgumentParser.Result) {
