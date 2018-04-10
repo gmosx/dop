@@ -10,8 +10,7 @@ This tool should be considered alpha, and not stable. Breaking changes will happ
 
 ```
 swift build -c release
-rm /usr/local/bin/dop
-ln -s `pwd`/.build/release/dop /usr/local/bin/dop
+ln -sf `pwd`/.build/release/dop /usr/local/bin/dop
 ```
 
 ## Usage
