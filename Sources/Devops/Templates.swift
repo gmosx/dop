@@ -1,6 +1,6 @@
 public class Templates {
     let project: Project
-    
+
     public init(project: Project) {
         self.project = project
     }
@@ -19,7 +19,7 @@ public class Templates {
             FROM ibmcom/swift-ubuntu-runtime:\(project.swiftVersion)
             LABEL Description="\(project.description)"
             MAINTAINER \(project.maintainer ?? "Unknown")
-            
+
             \(aptGetUpdateRunCommand)
 
             WORKDIR /root
@@ -86,7 +86,7 @@ public class Templates {
             """
         )
     }
-    
+
     public var devopsFileContents: String {
         return (
             """
@@ -95,33 +95,43 @@ public class Templates {
             ## Deploy a new release
 
             ### Preparation
-            
+
+            First of all, ensure that the `docker` daemon is running.
+
             ```
             dop version-bump
             dop image-build
             eval $(dop login)
             dop image-push
             ```
-            
+
             ### Manual deployment
-            
+
             ```
-            helm template \(project.chartPath)
+            helm template \(project.chartPath) > deployment.yaml
             kubectl apply -f deployment.yaml
             ```
-            
+
             ### Deployment with Helm
-            
+
             ```
             helm package \(project.chartPath)
             helm upgrade \(project.helmPackagePath)
             ```
-            
+
             ## Useful kubectl commands
-            
+
             ```
+            # Show all deployments
             kubectl get deployment
+
+            # Show all pods
             kubectl get pods
+
+            # Sho details of the project's deployment
+            kubectl describe deployment <deployment-name>
+
+            # Show the logs of the pod
             kubectl logs <pod-name>
             ```
             """
