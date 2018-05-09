@@ -92,15 +92,30 @@ public class Templates {
             """
             # Devops workflows
 
-            ## Deploy a new release
-
-            ### Preparation
+            ## Building a new release
 
             First of all, ensure that the `docker` daemon is running.
 
             ```
             dop version-bump
             dop image-build
+            ```
+
+            Check that everything is OK by running the image locally:
+
+            ```
+            dop image-run
+            ```
+
+            ## Deploying a new release
+
+            ### Registering the release image
+
+            First of all, ensure that the `docker` daemon is running. Then
+            make sure that the image is built following the steps in the
+            previous section.
+
+            ```
             eval $(dop login)
             dop image-push
             ```
