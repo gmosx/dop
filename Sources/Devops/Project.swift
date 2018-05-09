@@ -27,19 +27,19 @@ public class Project {
 
         self.init(descriptor: descriptor)
     }
-    
+
     public var name: String {
         return descriptor.name
     }
-    
+
     public var version: String {
         return descriptor.version
     }
-    
+
     public var description: String {
         return descriptor.description ?? "\(name) \(version)"
     }
-    
+
     public var maintainer: String? {
         return descriptor.maintainer
     }
@@ -59,43 +59,43 @@ public class Project {
     public var repoPath: String {
         return descriptor.repoPath ?? env("DOP_REPO_PATH")
     }
-    
+
     public var packagePath: String {
         return descriptor.packagePath ?? env("DOP_PACKAGE_PATH")
     }
-    
+
     public var userName: String {
         return descriptor.userName ?? env("DOP_USER_NAME")
     }
-    
+
     public var password: String {
         return descriptor.password ?? env("DOP_PASSWORD")
     }
-    
+
     public var accountId: String {
         return descriptor.accountId ?? env("DOP_ACCOUNT_ID")
     }
-    
+
     public var organizationName: String {
         return descriptor.organizationName ?? env("DOP_ORGANIZATION_NAME")
     }
-    
+
     public var spaceName: String {
         return descriptor.spaceName ?? env("DOP_SPACE_NAME")
     }
-    
+
     public var registry: String {
         return descriptor.registry ?? env("DOP_REGISTRY")
     }
-    
+
     public var registryNamespace: String {
         return descriptor.registryNamespace ?? env("DOP_REGISTRY_NAMESPACE")
     }
-    
+
     public var clusterName: String {
         return descriptor.clusterName ?? env("DOP_CLUSTER_NAME")
     }
-    
+
     public var imageName: String {
         return "\(registryNamespace)/\(name)"
     }
@@ -107,7 +107,7 @@ public class Project {
     public var toolsImageName: String {
         return "reizu/\(name)-tools"
     }
-    
+
     public var chartPath: String {
         return "chart/\(name)"
     }
@@ -115,7 +115,11 @@ public class Project {
     public var helmPackagePath: String {
         return "\(name)-\(version).tgz"
     }
-    
+
+    public var license: String {
+        return descriptor.license ?? "PROPRIETARY"
+    }
+
     @discardableResult
     public func bumpVersion() -> String {
         let currentVersion = Version(stringLiteral: version)
@@ -124,4 +128,3 @@ public class Project {
         return version
     }
 }
-

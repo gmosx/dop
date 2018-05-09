@@ -22,4 +22,5 @@ public struct ProjectDescriptor: Codable {
     public var registry: String?
     public var registryNamespace: String?
     public var clusterName: String?
+    public var license: String? // UNLICENSED, MIT
 }

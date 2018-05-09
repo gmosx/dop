@@ -25,6 +25,12 @@ class InitCommand: DevopsCommand {
 
             try shell.ensureDirectoryExists(atPath: "\(project.chartPath)/templates")
             try shell.writeTextFile(atPath: "\(project.chartPath)/templates/deployment.yaml", contents: templates.deploymentYAMLContents)
+
+            if project.license == "MIT" {
+                try shell.writeTextFile(atPath: "LICENSE", contents: templates.mitLicenseContents)
+            } else {
+                try shell.writeTextFile(atPath: "LICENSE", contents: templates.proprietaryLicenseContents)
+            }
         } catch {
             print(error.localizedDescription)
         }
