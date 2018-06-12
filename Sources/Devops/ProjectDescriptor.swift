@@ -10,6 +10,8 @@ public struct ProjectDescriptor: Codable {
     public var description: String?
     public var maintainer: String?
     public var swiftVersion: String?
+    public var targetType: String? // {library, executable, container}
+    public var targetName: String?
     public var executableName: String?
     public var systemPackages: [String]?
     public var repoPath: String?
@@ -22,5 +24,6 @@ public struct ProjectDescriptor: Codable {
     public var registry: String?
     public var registryNamespace: String?
     public var clusterName: String?
-    public var license: String? // UNLICENSED, MIT
+    public var githubOrganizationName: String?
+    public var license: String? // {UNLICENSED, MIT}
 }

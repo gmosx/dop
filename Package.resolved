@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/reizu/swift-cli-handler.git",
         "state": {
           "branch": "master",
-          "revision": "b53879f87641a76751d38929390da37c33d09185",
+          "revision": "a113e55b50b2d81afa30278f9e8dec82850b16a0",
           "version": null
         }
       },
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/apple/swift-package-manager.git",
         "state": {
           "branch": null,
-          "revision": "63a01220e93271dc3bf204b9e13dd1aeb2beefee",
-          "version": "0.2.0"
+          "revision": "6983434787dec4e543e9d398a0a9acf63ccd4da1",
+          "version": "0.2.1"
         }
       },
       {
@@ -33,7 +33,7 @@
         "repositoryURL": "https://github.com/reizu/swift-shell.git",
         "state": {
           "branch": "master",
-          "revision": "3b940fea355fcbbfb0e9818bf36c3079d6bdea2a",
+          "revision": "67ae1878da27095ef71d7fc1c73ead854475a188",
           "version": null
         }
       }

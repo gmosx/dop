@@ -155,6 +155,27 @@ public class Templates {
         )
     }
 
+    public var libraryDevopsFileContents: String {
+        return (
+            """
+            # Devops workflows
+
+            ## Setup github origin
+
+            ```
+            git remote add origin \(project.githubRepositoryURL)
+            git push -u origin master
+            ```
+
+            ## Push new version to github
+
+            ```
+            git push
+            ```
+            """
+        )
+    }
+
     public var proprietaryLicenseContents: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy"

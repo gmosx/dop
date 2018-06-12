@@ -3,6 +3,7 @@ import Utility
 
 // TODO: consider renaming to updateVersion, support increment/decrement, etc
 // TODO: commit after bumping versions, before tagging
+// TODO: support bumping for non-container/executable targets
 
 class BumpVersionCommand: DevopsCommand {
     convenience init() {

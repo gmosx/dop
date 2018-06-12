@@ -48,8 +48,20 @@ public class Project {
         return descriptor.swiftVersion ?? "4.1"
     }
 
+    public var targetType: String {
+        return descriptor.targetType ?? "executable"
+    }
+
+    public var targetName: String {
+        return descriptor.targetName ?? descriptor.executableName ?? name
+    }
+
+    public var libraryName: String {
+        return descriptor.targetName ?? "swift-\(name.lowercased())"
+    }
+
     public var executableName: String {
-        return descriptor.executableName ?? name
+        return targetName
     }
 
     public var systemPackages: [String] {
@@ -114,6 +126,18 @@ public class Project {
 
     public var helmPackagePath: String {
         return "\(name)-\(version).tgz"
+    }
+
+    public var githubOrganizationName: String {
+        return descriptor.githubOrganizationName ?? organizationName.lowercased()
+    }
+
+    public var githubOrganizationURL: String {
+        return "https://github.com/\(githubOrganizationName)"
+    }
+
+    public var githubRepositoryURL: String {
+        return "\(githubOrganizationURL)/\(targetName).git"
     }
 
     public var license: String {
