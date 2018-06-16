@@ -92,7 +92,16 @@ public class Templates {
     public var devopsFileContents: String {
         return (
             """
-            # Devops workflows
+            # Container dev-ops workflows
+
+            ## Prepare the tools
+
+            First of all, ensure that the `docker` daemon is running. Then,
+            sign-in to IBM Cloud:
+
+            ```
+            eval $(dop login)
+            ```
 
             ## Building a new release
 
@@ -113,12 +122,10 @@ public class Templates {
 
             ### Registering the release image
 
-            First of all, ensure that the `docker` daemon is running. Then
-            make sure that the image is built following the steps in the
+            First, make sure that the image is built following the steps in the
             previous section.
 
             ```
-            eval $(dop login)
             dop image-push
             ```
 
