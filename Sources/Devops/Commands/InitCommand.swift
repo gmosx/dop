@@ -30,6 +30,8 @@ class InitCommand: DevopsCommand {
         } else {
             try shell.writeTextFile(atPath: "LICENSE", contents: templates.proprietaryLicenseContents)
         }
+
+        print("Please read the `devops.md` file for additional information on dev-ops workflows.")
     }
 
     func initLibrary() throws {
