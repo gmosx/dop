@@ -4,7 +4,7 @@ import Utility
 import CLIHandler
 
 public class DopCommand: CLICommand {
-    let toolVersion = "0.10.0"
+    let toolVersion = "0.11.0"
 
     var versionOption: OptionArgument<Bool>!
 

@@ -1,5 +1,7 @@
 import Foundation
 
+// TODO: split into multiple files.
+
 public class Templates {
     let project: Project
 
@@ -127,6 +129,12 @@ public class Templates {
 
             ```
             dop image-push
+            ```
+
+            ### Deployment with dop
+
+            ```
+            dop release-upgrade
             ```
 
             ### Manual deployment
