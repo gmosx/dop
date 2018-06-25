@@ -144,6 +144,10 @@ public class Project {
         return descriptor.license ?? "PROPRIETARY"
     }
 
+    public var containerAppLabel: String {
+        return descriptor.name
+    }
+
     @discardableResult
     public func bumpVersion() -> String {
         let currentVersion = Version(stringLiteral: version)

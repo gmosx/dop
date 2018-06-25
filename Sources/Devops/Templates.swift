@@ -105,6 +105,15 @@ public class Templates {
             eval $(dop login)
             ```
 
+            ## Building the tools container
+
+            Before building the application container, you need to build the
+            'tools' container needed for compilation, etc:
+
+            ```
+            dop tools-image-build
+            ```
+
             ## Building a new release
 
             First of all, ensure that the `docker` daemon is running.
@@ -128,7 +137,14 @@ public class Templates {
             previous section.
 
             ```
-            dop image-push
+            dop image-register
+            ```
+
+            You may want to remove previous images from the registry to make
+            space:
+
+            ```
+            dop image-unregister <tag>
             ```
 
             ### Deployment with dop

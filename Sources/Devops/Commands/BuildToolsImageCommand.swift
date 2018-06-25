@@ -2,7 +2,7 @@ import Utility
 
 class BuildToolsImageCommand: DevopsCommand {
     convenience init() {
-        self.init(name: "tools-build-image", summary: "Build the tools image")
+        self.init(name: "tools-image-build", summary: "Build the tools image")
     }
 
     override func run(result: ArgumentParser.Result) {

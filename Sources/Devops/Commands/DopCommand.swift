@@ -21,8 +21,10 @@ public class DopCommand: CLICommand {
         add(subcommand: BumpVersionCommand())
         add(subcommand: BuildImageCommand())
         add(subcommand: RunImageCommand())
-        add(subcommand: PushImageCommand())
+        add(subcommand: RegisterImageCommand())
+        add(subcommand: UnregisterImageCommand())
         add(subcommand: UpgradeReleaseCommand())
+        add(subcommand: ContainerLogsCommand())
         add(subcommand: CleanCommand())
     }
 
