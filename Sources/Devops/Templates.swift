@@ -9,10 +9,12 @@ public class Templates {
         self.project = project
     }
 
+    /// https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+    /// https://forums.docker.com/t/dockerfile-run-apt-get-install-all-packages-at-once-or-one-by-one/17191
     private var aptGetUpdateRunCommand: String {
         let installAptPackages = project.systemPackages.isEmpty
             ? ""
-            : "\n\(project.systemPackages.map({ "RUN apt-get install -y \($0)" }).joined(separator: "\n"))"
+            : " && RUN apt-get install -y \(project.systemPackages.map({ $0 }).joined(separator: " "))"
 
         return "RUN apt-get update\(installAptPackages)"
     }
