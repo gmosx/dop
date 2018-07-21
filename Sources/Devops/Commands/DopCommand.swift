@@ -25,6 +25,7 @@ public class DopCommand: CLICommand {
         add(subcommand: UnregisterImageCommand())
         add(subcommand: UpgradeReleaseCommand())
         add(subcommand: ContainerLogsCommand())
+        add(subcommand: InstallExecutableCommand())
         add(subcommand: CleanCommand())
     }
 
