@@ -14,7 +14,7 @@ class InstallExecutableCommand: DevopsCommand {
             try shell.execute(script:
                 """
                 swift build -c release
-                cp .build/release/\(project.executableName) /usr/local/bin/\(project.executableName)
+                cp -f .build/release/\(project.executableName) /usr/local/bin/\(project.executableName)
                 """
             )
         } catch {

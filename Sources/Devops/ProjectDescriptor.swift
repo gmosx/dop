@@ -13,7 +13,7 @@ public struct ProjectDescriptor: Codable {
     public var targetType: String? // {library, executable, container}
     public var targetName: String?
     public var executableName: String?
-    public var systemPackages: [String]?
+    public var systemPackages: [String]? // apt-get packages
     public var repoPath: String?
     public var packagePath: String? // TODO: consider swiftPackagePath
     public var userName: String?
