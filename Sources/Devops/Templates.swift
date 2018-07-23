@@ -93,10 +93,52 @@ public class Templates {
         )
     }
 
-    public var devopsFileContents: String {
+    public var executableDevopsFileContents: String {
         return (
             """
-            # Container dev-ops workflows
+            # Devops workflows for Executables
+
+            ## Setup github origin
+
+            ```
+            git remote add origin \(project.githubRepositoryURL)
+            git push -u origin master
+            ```
+
+            ## Push new version to github
+
+            ```
+            git push
+            ```
+            """
+        )
+    }
+
+    public var libraryDevopsFileContents: String {
+        return (
+            """
+            # Devops workflows for Libraries
+
+            ## Setup github origin
+
+            ```
+            git remote add origin \(project.githubRepositoryURL)
+            git push -u origin master
+            ```
+
+            ## Push new version to github
+
+            ```
+            git push
+            ```
+            """
+        )
+    }
+
+    public var containerDevopsFileContents: String {
+        return (
+            """
+            # Devops workflows for Containers
 
             ## Prepare the tools
 
@@ -183,27 +225,6 @@ public class Templates {
 
             # Show the logs of the pod
             kubectl logs <pod-name>
-            ```
-            """
-        )
-    }
-
-    public var libraryDevopsFileContents: String {
-        return (
-            """
-            # Devops workflows
-
-            ## Setup github origin
-
-            ```
-            git remote add origin \(project.githubRepositoryURL)
-            git push -u origin master
-            ```
-
-            ## Push new version to github
-
-            ```
-            git push
             ```
             """
         )

@@ -41,9 +41,9 @@ class BuildImageCommand: DevopsCommand {
         )
     }
 
-    public func updarteDevopsFile() throws {
+    public func updateDevopsFile() throws {
         let templates = Templates(project: project)
-        try shell.writeTextFile(atPath: "devops.md", contents: templates.devopsFileContents)
+        try shell.writeTextFile(atPath: "devops.md", contents: templates.containerDevopsFileContents)
     }
 
     override func run(result: ArgumentParser.Result) {
@@ -56,7 +56,7 @@ class BuildImageCommand: DevopsCommand {
 
             try buildExecutable()
             try buildImage()
-            try updarteDevopsFile()
+            try updateDevopsFile()
         } catch {
             print(error.localizedDescription)
         }

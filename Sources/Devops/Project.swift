@@ -49,7 +49,7 @@ public class Project {
     }
 
     public var targetType: String {
-        return descriptor.targetType ?? "executable"
+        return descriptor.targetType ?? "container"
     }
 
     public var targetName: String {

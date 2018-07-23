@@ -12,9 +12,33 @@ class InitCommand: DevopsCommand {
     func initExecutable() throws {
         let templates = Templates(project: project)
 
+        try shell.writeTextFile(atPath: "devops.md", contents: templates.executableDevopsFileContents)
+
+        if project.license == "MIT" {
+            try shell.writeTextFile(atPath: "LICENSE", contents: templates.mitLicenseContents)
+        } else {
+            try shell.writeTextFile(atPath: "LICENSE", contents: templates.proprietaryLicenseContents)
+        }
+    }
+
+    func initLibrary() throws {
+        let templates = Templates(project: project)
+
+        try shell.writeTextFile(atPath: "devops.md", contents: templates.libraryDevopsFileContents)
+
+        if project.license == "MIT" {
+            try shell.writeTextFile(atPath: "LICENSE", contents: templates.mitLicenseContents)
+        } else {
+            try shell.writeTextFile(atPath: "LICENSE", contents: templates.proprietaryLicenseContents)
+        }
+    }
+
+    func initContainer() throws {
+        let templates = Templates(project: project)
+
         try shell.writeTextFile(atPath: "Dockerfile", contents: templates.dockerfileContents)
         try shell.writeTextFile(atPath: "Dockerfile-tools", contents: templates.dockerfileToolsContents)
-        try shell.writeTextFile(atPath: "devops.md", contents: templates.devopsFileContents)
+        try shell.writeTextFile(atPath: "devops.md", contents: templates.containerDevopsFileContents)
 
         try shell.ensureDirectoryExists(atPath: project.chartPath)
         try shell.writeTextFile(atPath: "\(project.chartPath)/Chart.yaml", contents: templates.chartYAMLContents)
@@ -34,18 +58,6 @@ class InitCommand: DevopsCommand {
         print("Please read the `devops.md` file for additional information on dev-ops workflows.")
     }
 
-    func initLibrary() throws {
-        let templates = Templates(project: project)
-
-        try shell.writeTextFile(atPath: "devops.md", contents: templates.libraryDevopsFileContents)
-
-        if project.license == "MIT" {
-            try shell.writeTextFile(atPath: "LICENSE", contents: templates.mitLicenseContents)
-        } else {
-            try shell.writeTextFile(atPath: "LICENSE", contents: templates.proprietaryLicenseContents)
-        }
-    }
-
     override func run(result: ArgumentParser.Result) {
         do {
             switch project.targetType {
@@ -54,6 +66,9 @@ class InitCommand: DevopsCommand {
 
             case "library":
                 try initLibrary()
+
+            case "container":
+                try initContainer()
 
             default:
                 print("Unknown target type '\(project.targetType)'")
